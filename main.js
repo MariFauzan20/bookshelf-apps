@@ -4,6 +4,10 @@ let inputBookAuthor = document.getElementById("inputBookAuthor");
 let inputBookYear = document.getElementById("inputBookYear");
 let inputBookIsComplete = document.getElementById("inputBookIsComplete");
 let formInputBook = document.getElementById("inputBook");
+let searchBookTitle = document.getElementById("searchBookTitle");
+let bookItem = document.getElementsByClassName("book_item");
+
+searchBookTitle.onkeyup = () => searchBook();
 
 // Strore Book
 bookSubmit.addEventListener("click", (e) => {
@@ -22,7 +26,7 @@ bookSubmit.addEventListener("click", (e) => {
   books.push(booksJSON);
   localStorage["books"] = JSON.stringify(books);
 
-  formInputBook.reset();
+  location.reload();
 });
 
 // Get All Books
@@ -73,10 +77,6 @@ books.map((book) => {
     : incompleteBookList.appendChild(articleBookItem);
 });
 
-function deleteBook(id) {
-  console.log(id);
-}
-
 function finishedReading(id) {
   books.map((book) => {
     if (book.id == id) {
@@ -97,4 +97,30 @@ function notFinishedReading(id) {
 
   localStorage["books"] = JSON.stringify(books);
   location.reload();
+}
+
+// Delete Book by Id
+function deleteBook(id) {
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].id === id) {
+      books.splice(i, 1);
+    }
+  }
+
+  localStorage["books"] = JSON.stringify(books);
+  location.reload();
+}
+
+// Search Book
+function searchBook() {
+  let input = searchBookTitle.value;
+  input = input.toLowerCase();
+
+  for (let i = 0; i < bookItem.length; i++) {
+    if (!bookItem[i].childNodes[0].innerHTML.toLowerCase().includes(input)) {
+      bookItem[i].style.display = "none";
+    } else {
+      bookItem[i].style.display = "";
+    }
+  }
 }
