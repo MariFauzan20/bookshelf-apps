@@ -42,7 +42,7 @@ books.map((book) => {
   const tahun = document.createElement("p");
   const divAction = document.createElement("div");
   const buttonGreen = document.createElement("button");
-  const buttonRed = document.createElement("button");
+  const buttonRed = document.createElement("i");
 
   articleBookItem.classList.add("book_item");
   articleBookItem.setAttribute("id", `${book.id}`);
@@ -61,7 +61,7 @@ books.map((book) => {
     }
   };
   divAction.appendChild(buttonRed);
-  buttonRed.classList.add("red");
+  buttonRed.classList.add("fa", "fa-trash");
   buttonRed.onclick = () => deleteBook(book.id);
 
   title.innerText = book.title;
@@ -70,7 +70,6 @@ books.map((book) => {
   buttonGreen.innerText = book.isComplete
     ? "Belum selesai di Baca"
     : "Selesai dibaca";
-  buttonRed.innerText = "Hapus buku";
 
   book.isComplete
     ? completeBookList.appendChild(articleBookItem)
