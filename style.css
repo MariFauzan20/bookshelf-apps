@@ -140,6 +140,7 @@ header > form > input {
 
 .book_shelf {
   padding: 16px;
+  width: 25%;
 }
 
 .book_shelf > h2 {

@@ -7,6 +7,12 @@ let formInputBook = document.getElementById("inputBook");
 let searchBookTitle = document.getElementById("searchBookTitle");
 let bookItem = document.getElementsByClassName("book_item");
 
+// initial array for save book
+if (!JSON.parse(localStorage.getItem("books"))) {
+  let books = [];
+  localStorage.setItem("books", JSON.stringify(books));
+}
+
 // Create Edit Button
 let buttonEdit = document.createElement("button");
 buttonEdit.setAttribute("id", "bookEdit");
@@ -30,7 +36,7 @@ searchBookTitle.onkeyup = () => searchBook();
 bookSubmit.addEventListener("click", (e) => {
   e.preventDefault();
 
-  let books = JSON.parse(localStorage.getItem("books"));
+  books = JSON.parse(localStorage.getItem("books"));
 
   booksJSON = {
     id: +new Date(),
@@ -49,7 +55,7 @@ bookSubmit.addEventListener("click", (e) => {
 // Get All Books
 let incompleteBookList = document.getElementById("incompleteBookshelfList");
 let completeBookList = document.getElementById("completeBookshelfList");
-let books = JSON.parse(localStorage.getItem("books"));
+books = JSON.parse(localStorage.getItem("books"));
 
 // Create article
 books.map((book) => {
