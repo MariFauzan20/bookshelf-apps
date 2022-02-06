@@ -7,6 +7,23 @@ let formInputBook = document.getElementById("inputBook");
 let searchBookTitle = document.getElementById("searchBookTitle");
 let bookItem = document.getElementsByClassName("book_item");
 
+// Create Edit Button
+let buttonEdit = document.createElement("button");
+buttonEdit.setAttribute("id", "bookEdit");
+buttonEdit.innerText = "Perbarui Buku";
+buttonEdit.style.fontWeight = "bold";
+formInputBook.appendChild(buttonEdit);
+buttonEdit.style.display = "none";
+
+// Create Cancel Button
+let buttonCancel = document.createElement("button");
+buttonCancel.setAttribute("id", "bookCancel");
+buttonCancel.innerText = "Batal";
+buttonCancel.style.fontWeight = "bold";
+formInputBook.appendChild(buttonCancel);
+buttonCancel.style.display = "none";
+
+// Event Search
 searchBookTitle.onkeyup = () => searchBook();
 
 // Strore Book
@@ -43,6 +60,8 @@ books.map((book) => {
   const divAction = document.createElement("div");
   const buttonGreen = document.createElement("button");
   const buttonRed = document.createElement("i");
+  const buttonEdit = document.createElement("i");
+  const div = document.createElement("div");
 
   articleBookItem.classList.add("book_item");
   articleBookItem.setAttribute("id", `${book.id}`);
@@ -60,7 +79,11 @@ books.map((book) => {
       finishedReading(book.id);
     }
   };
-  divAction.appendChild(buttonRed);
+  divAction.appendChild(div);
+  div.appendChild(buttonEdit);
+  buttonEdit.classList.add("fa", "fa-edit");
+  buttonEdit.onclick = () => editBook(book.id);
+  div.appendChild(buttonRed);
   buttonRed.classList.add("fa", "fa-trash");
   buttonRed.onclick = () => deleteBook(book.id);
 
@@ -120,6 +143,39 @@ function searchBook() {
       bookItem[i].style.display = "none";
     } else {
       bookItem[i].style.display = "";
+    }
+  }
+}
+
+// Edit Book
+function editBook(id) {
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].id === id) {
+      inputBookTitle.value = books[i].title;
+      inputBookAuthor.value = books[i].author;
+      inputBookYear.value = books[i].year;
+      inputBookIsComplete.checked = books[i].isComplete ? true : false;
+      bookSubmit.style.display = "none";
+      buttonEdit.style.display = "block";
+      buttonCancel.style.display = "block";
+
+      buttonEdit.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        books[i].title = inputBookTitle.value;
+        books[i].author = inputBookAuthor.value;
+        books[i].year = inputBookYear.value;
+        books[i].isComplete = inputBookIsComplete.checked;
+
+        localStorage["books"] = JSON.stringify(books);
+        location.reload();
+      });
+
+      buttonCancel.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        location.reload();
+      });
     }
   }
 }

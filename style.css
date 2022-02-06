@@ -57,6 +57,18 @@ main {
   cursor: pointer;
 }
 
+.input_section > form > #bookCancel {
+  background-color: #fa8c8c;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  display: block;
+  width: 100%;
+  padding: 8px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
 .input_section > form > button > span {
   font-weight: bold;
 }
@@ -174,7 +186,8 @@ p {
   font-size: 14px;
 }
 
-.book_shelf > .book_list > .book_item > .action > .fa-trash {
+.book_shelf > .book_list > .book_item > .action > div > .fa-trash {
+  cursor: pointer;
   color: #cccccc;
 }
 
@@ -184,4 +197,9 @@ p {
 
 .book_shelf > #completeBookshelfList > .book_item {
   border: 2px solid #65d866;
+}
+
+.action > div > .fa-edit {
+  margin-right: 14px;
+  cursor: pointer;
 }
